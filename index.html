@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6f2">
+    <title>Process Basis — Chemical Engineering Prerequisites</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Process operation navigation">
+        <a class="brand" href="#" aria-label="Process Basis home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>process<span class="brand-light">basis</span></span>
+        </a>
+        <div class="sidebar-label">WORKSPACE</div>
+        <div class="workspace-card">
+          <span class="workspace-icon" aria-hidden="true">⌘</span>
+          <span><strong>Design reference</strong><small>Chemical engineering</small></span>
+          <span class="workspace-dots" aria-hidden="true">···</span>
+        </div>
+        <div class="sidebar-section-heading">
+          <span class="sidebar-label">UNIT OPERATIONS</span>
+          <span class="operation-count" id="operation-count"></span>
+        </div>
+        <nav id="operation-list" class="operation-list" aria-label="Unit operations"></nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-note-icon" aria-hidden="true">i</div>
+          <p><strong>Start with the basis.</strong><br>Good design begins with a clear process definition.</p>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="breadcrumbs"><span>Engineering toolkit</span><span class="crumb-slash">/</span><strong id="breadcrumb-operation">Reactor design</strong></div>
+          <div class="topbar-right"><span class="reference-tag"><span class="status-dot"></span> DESIGN REFERENCE</span></div>
+        </header>
+        <div class="content-wrap">
+          <section class="page-heading">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-line"></span> PROCESS DESIGN / PREREQUISITES</div>
+              <h1 id="page-title">Reactor design</h1>
+              <p class="page-description" id="page-description"></p>
+            </div>
+            <div class="heading-meta">
+              <span class="operation-type" id="operation-type"></span>
+              <span class="meta-caption">ENGINEERING CHECKLIST</span>
+            </div>
+          </section>
+
+          <nav class="view-tabs" aria-label="Process design tools">
+            <button type="button" class="view-tab" id="checklist-tab" aria-selected="true" aria-controls="checklist-view">Prerequisites</button>
+            <button type="button" class="view-tab" id="balance-tab" aria-selected="false" aria-controls="balance-view">Mass &amp; energy balance</button>
+          </nav>
+
+          <div id="checklist-view">
+          <section class="overview-card" aria-label="Checklist progress">
+            <div class="overview-copy">
+              <div class="overview-kicker">DESIGN BASIS COMPLETENESS</div>
+              <div class="overview-title"><span id="checked-count">0</span><span class="overview-divider">/</span><span id="total-count">0</span><span class="overview-unit">items reviewed</span></div>
+              <p id="progress-message">Review the prerequisites to establish a solid design basis.</p>
+            </div>
+            <div class="progress-area">
+              <div class="progress-track" role="progressbar" aria-label="Design basis completeness" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
+                <span id="progress-fill"></span>
+              </div>
+              <div class="progress-footer"><span>NOT STARTED</span><span id="progress-percent">0%</span></div>
+            </div>
+            <div class="overview-decoration" aria-hidden="true"><span></span><span></span><span></span></div>
+          </section>
+
+          <section class="checklist-section">
+            <div class="section-header">
+              <div>
+                <div class="section-title-row"><h2>Prerequisite checklist</h2><span class="item-total" id="item-total"></span></div>
+                <p>Define these inputs before sizing or selecting equipment.</p>
+              </div>
+              <div class="section-actions">
+                <label class="search-box">
+                  <span aria-hidden="true">⌕</span>
+                  <input id="prerequisite-search" type="search" placeholder="Find a prerequisite..." aria-label="Search prerequisites">
+                </label>
+                <button class="reset-button" id="reset-checklist" type="button" title="Clear reviewed items for this operation">
+                  <span aria-hidden="true">↺</span> Reset checklist
+                </button>
+              </div>
+            </div>
+            <div class="groups" id="checklist-groups"></div>
+          </section>
+          </div>
+
+          <section id="balance-view" class="balance-view" hidden aria-labelledby="balance-title">
+            <div class="balance-intro">
+              <div><h2 id="balance-title">Steady-state balance calculator</h2><p>Enter component molar flow rates on each side of the process. Results update as you type.</p></div>
+              <span class="balance-operation" id="balance-operation">REACTOR DESIGN</span>
+            </div>
+
+            <div class="balance-warning"><span aria-hidden="true">i</span><p><strong>Screening calculation only.</strong> Assumes steady state with no accumulation, shaft work, or kinetic/potential energy changes. Enter actual outlet flows (including products formed and reactants consumed). This does not size equipment or verify process safety.</p></div>
+
+            <section class="balance-card" aria-labelledby="component-data-title">
+              <div class="balance-card-heading">
+                <div><h3 id="component-data-title">Component flow data</h3><p>Enter one row per chemical species. Use consistent units throughout.</p></div>
+                <button id="add-component" type="button" class="add-component"><span aria-hidden="true">+</span> Add component</button>
+              </div>
+              <div class="table-scroll">
+                <table class="component-table">
+                  <thead><tr>
+                    <th scope="col">COMPONENT</th><th scope="col">MW<span>kg/kmol</span></th>
+                    <th scope="col">INLET<span>kmol/h</span></th><th scope="col">OUTLET<span>kmol/h</span></th>
+                    <th scope="col">Cp<span>kJ/kmol·K</span></th><th scope="col">Hf°<span>kJ/kmol</span></th>
+                    <th scope="col">Δ MASS<span>kg/h</span></th><th scope="col"><span class="visually-hidden">Remove</span></th>
+                  </tr></thead>
+                  <tbody id="component-rows"></tbody>
+                </table>
+              </div>
+              <div class="table-hint">Hf° is the formation enthalpy at the reference state; Cp is assumed constant over the temperature range. Leave a stream flow at zero when that component is absent on that side.</div>
+            </section>
+
+            <section class="conditions-card" aria-labelledby="conditions-title">
+              <div class="conditions-heading"><h3 id="conditions-title">Operating conditions</h3><span>COMMON TEMPERATURES APPLY TO ALL COMPONENTS</span></div>
+              <div class="condition-fields">
+                <label>Inlet temperature <span>°C</span><input type="number" step="any" id="inlet-temperature" aria-label="Inlet temperature in degrees Celsius"></label>
+                <label>Outlet temperature <span>°C</span><input type="number" step="any" id="outlet-temperature" aria-label="Outlet temperature in degrees Celsius"></label>
+                <label>Reference temperature <span>°C</span><input type="number" step="any" id="reference-temperature" aria-label="Reference temperature in degrees Celsius"></label>
+                <label>Heat supplied, Q <span>kJ/h</span><input type="number" step="any" id="heat-supplied" aria-label="Heat supplied to process in kilojoules per hour"></label>
+              </div>
+              <p class="conditions-note">Positive heat supplied means heat added to the process; negative means heat removed.</p>
+            </section>
+
+            <section class="results-section" aria-labelledby="results-title">
+              <div class="results-heading"><h3 id="results-title">Calculated balance</h3><span id="balance-status" class="balance-status">AWAITING INPUT</span></div>
+              <div class="result-grid">
+                <article class="result-card"><span class="result-label">TOTAL MASS IN</span><strong id="mass-in-result">—</strong><span class="result-unit">kg/h</span></article>
+                <article class="result-card"><span class="result-label">TOTAL MASS OUT</span><strong id="mass-out-result">—</strong><span class="result-unit">kg/h</span></article>
+                <article class="result-card"><span class="result-label">MASS DIFFERENCE <span>(out − in)</span></span><strong id="mass-difference-result">—</strong><span class="result-unit">kg/h <span id="mass-percent-result"></span></span></article>
+              </div>
+              <div class="energy-results">
+                <div class="energy-result"><span>Heat duty required, Q = Ḣout − Ḣin</span><strong id="heat-required-result">—</strong></div>
+                <div class="energy-result"><span>Heat supplied (entered)</span><strong id="heat-entered-result">—</strong></div>
+                <div class="energy-result"><span>Energy residual, Ḣin + Q − Ḣout</span><strong id="energy-residual-result">—</strong></div>
+              </div>
+              <p id="balance-message" class="balance-message">Add component flow data to calculate the balances.</p>
+            </section>
+          </section>
+
+          <footer class="page-footer">
+            <span class="footer-mark" aria-hidden="true">PB</span>
+            <p>Use as a scoping aid, not as a substitute for detailed engineering, hazard review, or applicable codes and standards.</p>
+            <span class="footer-version">PROCESS BASIS <span>·</span> V1.0</span>
+          </footer>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
